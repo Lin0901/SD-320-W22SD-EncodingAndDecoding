@@ -1,44 +1,33 @@
-﻿using System.IO;
-using System.Text;
+﻿using System.Text;
 
-StringBuilder builder = new StringBuilder();
-Encoding utfText = Encoding.UTF8;
+string Encodepath = @"C:\Users\1\Desktop\Intro_to_LINQ_and_MVC\EncodingAndDecoding\EncodingAndDecoding";
+string Dncodepath = @"C:\Users\1\Desktop\Intro_to_LINQ_and_MVC\EncodingAndDecoding\EncodingAndDecoding";
 
-string inputPath = @"C:\Users\1\Desktop\Intro_to_LINQ_and_MVC\EncodingAndDecoding\EncodingAndDecoding\theMachineStops.txt";
+Encode(Encodepath, Dncodepath);
+Decode(Dncodepath, Dncodepath);
 
-byte[] utfBytes = utfText.GetBytes(inputPath);
-
-for(int i = 0; i < utfBytes.Length; i++)
+void Encode(string inputPath, string outputPath)
 {
-    Console.WriteLine(utfBytes[i]);
-}
+    Encoding ascii = Encoding.ASCII;
+    string content = "Encode";
+    byte[] bytes = ascii.GetBytes(content);
 
-try
-{
-    //Using the Directory class
-    Directory.SetCurrentDirectory(inputPath);
-
-    //set your working directory to the same directory as the file you are working with
-    string[] workingDirectory = Directory.GetFiles(inputPath, "theMachineStops.txt");
-
-    using (StreamReader reader = File.OpenText(workingDirectory[0]))
+    for (int x = 0; x < bytes.Length; x++)
     {
-        builder.Append(reader.ReadToEnd());
+        Console.WriteLine(bytes[x]);
     }
-
-    //outputs the result to a new text file called “TelegramCopy”
-    string outputPath = "theMachineStops-UTF8.txt";
-
-    //in the same directory as the original "path"
-    using (StreamWriter writer = File.CreateText(Path.Combine(inputPath, outputPath)))
-    {
-        writer.Write(builder.ToString());
-    }
-
 }
-catch (Exception ex)
+
+void Decode(string inputPath, string outputPath)
 {
-    Console.WriteLine(ex.Message);
-}
+    Encoding utf8 = Encoding.UTF8;
+    string content = "Decode";
+    byte[] bytes = utf8.GetBytes(inputPath);
+    string decodedText = UTF8Encoding.UTF8.GetString(bytes);
 
-Console.WriteLine(Directory.GetCurrentDirectory());
+    for (int x = 0; x < bytes.Length; x++)
+    {
+        Console.WriteLine(bytes[x]);
+    }
+    Console.WriteLine(content);
+}
